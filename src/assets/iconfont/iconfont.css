@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3494290 */
-  src: url('iconfont.woff2?t=1656902346414') format('woff2'),
-       url('iconfont.woff?t=1656902346414') format('woff'),
-       url('iconfont.ttf?t=1656902346414') format('truetype');
+  src: url('iconfont.woff2?t=1656919189796') format('woff2'),
+       url('iconfont.woff?t=1656919189796') format('woff'),
+       url('iconfont.ttf?t=1656919189796') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-c:before {
+  content: "\e683";
+}
+
+.icon-github-fill:before {
+  content: "\e885";
 }
 
 .icon-shezhi:before {

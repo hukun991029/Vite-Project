@@ -1,9 +1,6 @@
-<script>
-export default {
-    name: 'MainContent'
-};
+<script lang="ts" setup>
+import FooterContent from '../FooterContent/FooterContent.vue';
 </script>
-<script lang="ts" setup></script>
 <template>
     <a-layout style="padding: 0 24px 24px">
         <a-breadcrumb style="margin: 16px 0">
@@ -16,6 +13,7 @@ export default {
         >
             <router-view></router-view>
         </a-layout-content>
+        <FooterContent />
     </a-layout>
 </template>
 <style lang="scss" scoped></style>
