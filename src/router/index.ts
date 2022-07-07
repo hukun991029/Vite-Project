@@ -98,7 +98,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('../views/home/menu.vue'),
                 meta: {
                     title: '导航菜单',
-                    icon: 'SoundOutlined'
+                    icon: 'ProfileOutlined'
                 }
             },
             {
@@ -107,7 +107,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('../views/home/calendar.vue'),
                 meta: {
                     title: '日历',
-                    icon: 'SoundOutlined'
+                    icon: 'CalendarOutlined'
                 }
             }
         ]

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch, reactive, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import IsCollapse from '../SlideContent/IsCollapse.vue';
 import Icon from '../../utils/icon';
 let router = useRouter();
 const route = useRoute();
@@ -20,8 +21,13 @@ const state = reactive({
     selectedKeys: [route.path],
     preOpenKeys: ['home']
 });
+watch(
+    () => state.openKeys,
+    (_val, oldVal) => {
+        state.preOpenKeys = oldVal;
+    }
+);
 const onOpenChange = (openKeys: string[]) => {
-    console.log(openKeys);
     const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
     if (state.rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
         state.openKeys = openKeys;
@@ -36,17 +42,11 @@ const handleClick = (e) => {
 // 控制菜单折叠和展开
 let isCollapse = ref<boolean>(false);
 watch(
-    () => state.openKeys,
-    (_val, oldVal) => {
-        state.preOpenKeys = oldVal;
+    () => isCollapse,
+    (newVal, oldVal) => {
+        state.openKeys = !!newVal ? [] : state.preOpenKeys;
     }
 );
-const toggleCollapsed = (): void => {
-    isCollapse.value = !isCollapse.value;
-    state.openKeys = isCollapse.value ? state.preOpenKeys : [];
-    console.log(isCollapse.value);
-    console.log(state.openKeys);
-};
 </script>
 
 <template>
@@ -56,7 +56,6 @@ const toggleCollapsed = (): void => {
             v-model:selectedKeys="state.selectedKeys"
             mode="inline"
             theme="light"
-            :inline-collapsed="isCollapse"
             @openChange="onOpenChange"
             @click="handleClick"
         >
@@ -66,23 +65,8 @@ const toggleCollapsed = (): void => {
                 </template>
                 <span> {{ item.meta.title }}</span>
             </a-menu-item>
-            <!-- <a-sub-menu v-for="(item, index) in router.options.routes[0].children" :key="index + 1">
-                <template #icon>
-                 
-                </template>
-                <template #title>
-                    <span> {{ item.meta.title }}</span>
-                </template>
-            </a-sub-menu> -->
         </a-menu>
-        <div
-            class="collapse-wrap"
-            :style="{ width: isCollapse ? 80 + 'px' : 200 + 'px' }"
-            @click="toggleCollapsed"
-        >
-            <i v-if="isCollapse" class="iconfont icon-shousuo"></i>
-            <i v-else class="iconfont icon-zhankai"></i>
-        </div>
+        <IsCollapse v-model:isCollapse="isCollapse" />
     </a-layout-sider>
 </template>
 <style lang="scss" scoped>
@@ -106,8 +90,5 @@ const toggleCollapsed = (): void => {
     height: 48px;
     bottom: 0;
     cursor: pointer;
-    i {
-        font-size: 24px;
-    }
 }
 </style>
