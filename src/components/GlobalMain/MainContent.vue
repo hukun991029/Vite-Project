@@ -4,16 +4,13 @@ import FooterContent from '../FooterContent/FooterContent.vue';
 <template>
     <a-layout style="padding: 0 24px 24px">
         <a-breadcrumb style="margin: 16px 0">
-            <a-breadcrumb-item>Home</a-breadcrumb-item>
-            <a-breadcrumb-item>List</a-breadcrumb-item>
-            <a-breadcrumb-item>App</a-breadcrumb-item>
+            <a-breadcrumb-item>router1</a-breadcrumb-item>
+            <a-breadcrumb-item>router2</a-breadcrumb-item>
         </a-breadcrumb>
-        <a-layout-content
-            :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
-        >
+        <a-layout-content :style="{ padding: '24px', margin: 0, minHeight: '280px' }">
             <router-view></router-view>
         </a-layout-content>
-        <FooterContent />
+        <!-- <FooterContent /> -->
     </a-layout>
 </template>
 <style lang="scss" scoped></style>
