@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import ChooseArea from '../../components/ChooseArea/ChooseArea.vue';
-</script>
+<script lang="ts" setup></script>
 <template>
     <h2>省市区选择</h2>
     <ChooseArea />
