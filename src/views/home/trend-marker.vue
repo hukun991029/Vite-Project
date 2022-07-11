@@ -1,5 +1,5 @@
 <script lang="ts" setup></script>
 <template>
-    <div></div>
+    <TrendMarker />
 </template>
 <style lang="scss" scoped></style>
