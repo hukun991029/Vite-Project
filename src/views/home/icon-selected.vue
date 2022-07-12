@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import IconSelected from '@/components/IconSelected/index.vue';
 import { ref } from 'vue';
 let title = ref<string>('选择图标');
 let dialogVisible = ref<boolean>(false);
