@@ -8,9 +8,7 @@ const emit = defineEmits<{ (e: 'update:dialogVisible', diaolgVisible: boolean): 
 watch(
     () => props.dialogVisible,
     (newVal) => {
-        console.log('dialogVisible', newVal);
         visible.value = newVal;
-        // emit('update:dialogVisible', newVal);
     }
 );
 let visible = ref<boolean>(props.dialogVisible);

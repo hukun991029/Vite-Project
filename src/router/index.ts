@@ -3,6 +3,15 @@ import { h, resolveComponent } from 'vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
+        path: "/",
+        redirect:'/login'
+    },
+    {
+        path: "/login",
+        name: 'Login',
+        component:()=>import('../views/login/index.vue')
+    },
+    {
         path: '/',
         component: () => import('../views/main/index.vue'),
         children: [
