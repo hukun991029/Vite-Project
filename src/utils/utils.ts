@@ -1,3 +1,4 @@
+import { message } from 'ant-design-vue';
 export const toLine = (value: string): string => {
     return value
         .split('')
@@ -11,4 +12,14 @@ export const toLine = (value: string): string => {
         })
         .join('')
         .toLocaleLowerCase();
+};
+
+export const copy = (value: string): void => {
+    let input = document.createElement('input');
+    input.value = value;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    document.body.removeChild(input);
+    message.success('复制成功');
 };

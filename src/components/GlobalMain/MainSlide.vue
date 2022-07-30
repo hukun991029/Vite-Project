@@ -73,7 +73,7 @@ watch(
 .slide {
     height: calc(100vh - 64px);
     background-color: #fff;
-    :deep(.ant-layout-sider-trigger) {
+    ::v-deep(.ant-layout-sider-trigger) {
         background-color: #fff;
     }
 }
