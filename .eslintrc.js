@@ -1,7 +1,7 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        parser: 'vue-eslint-parser'
+        parser: 'vue-eslint/parser'
     },
     plugins: ['@typescript-eslint'],
     rules: {

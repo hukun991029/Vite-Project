@@ -1,6 +1,14 @@
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
+import useStore from '@/stores/store.js';
+const router = useRouter();
+const store = useStore();
 const menuClick = ({ key }) => {
     console.log(key);
+};
+const logout = () => {
+    router.push({ path: '/login' });
+    store.setUserInfo();
 };
 </script>
 <template>
@@ -27,7 +35,7 @@ const menuClick = ({ key }) => {
                 <a-menu-item key="loginOut">
                     <span>
                         <i class="iconfont icon-tuichu"></i>
-                        <span class="menu-info">退出登录</span>
+                        <span class="menu-info" @click="logout">退出登录</span>
                     </span>
                 </a-menu-item>
             </a-menu>
