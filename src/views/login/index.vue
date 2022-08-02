@@ -1,24 +1,34 @@
 <script lang="ts" setup>
-import { defineComponent, reactive } from 'vue';
+import md5 from 'md5';
+import $api from '../../api/index.ts';
+import useStore from '@/stores/store.js';
+import { defineComponent, reactive, toRaw } from 'vue';
+import { useRouter } from 'vue-router';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 interface FormState {
-    username: string;
-    password: string;
+    userName: string;
+    userPwd: string;
     remember: boolean;
     checked: boolean;
 }
 const formState = reactive<FormState>({
-    username: '',
-    password: '',
+    userName: '',
+    userPwd: '',
     remember: true,
     checked: false
 });
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+const store = useStore();
+const router = useRouter();
+const onFinish = async (values: any) => {
+    let params = toRaw(values);
+    params.userPwd = md5(params.userPwd);
+    try {
+        let res = await $api.login(params);
+        store.setUserInfo(res);
+        router.push({ path: '/index' });
+    } catch (error) {
+        console.log(error);
+    }
 };
 </script>
 <template>
@@ -31,27 +41,32 @@ const onFinishFailed = (errorInfo: any) => {
                 :wrapper-col="{ span: 24 }"
                 autocomplete="off"
                 @finish="onFinish"
-                @finishFailed="onFinishFailed"
             >
                 <a-form-item
-                    name="username"
-                    :rules="[{ required: true, message: '请输入您的用户名' }]"
+                    name="userName"
+                    :rules="[
+                        { required: true, message: '请输入您的用户名', trigger: 'blur' },
+                        { min: 3, max: 8, message: '用户名长度3-8位' }
+                    ]"
                 >
-                    <a-input v-model:value="formState.username" placeholder="请输入用户名">
+                    <a-input v-model:value="formState.userName" placeholder="请输入用户名">
                         <template #prefix>
                             <user-outlined type="user" style="color: rgba(0, 0, 0, 0.25)" />
                         </template>
                     </a-input>
                 </a-form-item>
                 <a-form-item
-                    name="password"
-                    :rules="[{ required: true, message: '请输入您的密码' }]"
+                    name="userPwd"
+                    :rules="[
+                        { required: true, message: '请输入您的密码', trigger: 'blur' },
+                        { min: 5, max: 12, message: '密码长度5-12位' }
+                    ]"
                 >
-                    <a-input v-model:value="formState.password" placeholder="请输入密码">
+                    <a-input-password v-model:value="formState.userPwd" placeholder="请输入密码">
                         <template #prefix>
                             <lock-outlined type="user" style="color: rgba(0, 0, 0, 0.25)" />
                         </template>
-                    </a-input>
+                    </a-input-password>
                 </a-form-item>
                 <a-form-item>
                     <a-row justify="space-between">

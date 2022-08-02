@@ -16,10 +16,10 @@ watch(
     }
 );
 const state = reactive({
-    rootSubmenuKeys: ['1', '2', '3', '4', '5'],
-    openKeys: ['home'],
-    selectedKeys: [route.path],
-    preOpenKeys: ['home']
+    rootSubmenuKeys: ['system-manage', 'components-manage'],
+    openKeys: [''],
+    selectedKeys: [],
+    preOpenKeys: ['index']
 });
 watch(
     () => state.openKeys,
@@ -28,6 +28,7 @@ watch(
     }
 );
 const onOpenChange = (openKeys: string[]) => {
+    console.log(openKeys);
     const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
     if (state.rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
         state.openKeys = openKeys;
@@ -36,7 +37,6 @@ const onOpenChange = (openKeys: string[]) => {
     }
 };
 const handleClick = (e) => {
-    console.log('e.key', e.key);
     router.push(e.key);
 };
 // 控制菜单折叠和展开
@@ -52,19 +52,25 @@ watch(
 <template>
     <a-layout-sider class="slide" v-model:collapsed="isCollapse" :trigger="null" collapsible>
         <a-menu
-            v-model:openKeys="state.openKeys"
+            :open-keys="state.openKeys"
             v-model:selectedKeys="state.selectedKeys"
             mode="inline"
             theme="light"
             @openChange="onOpenChange"
             @click="handleClick"
         >
-            <a-menu-item v-for="item in router.options.routes[0].children" :key="item.path">
+            <a-sub-menu v-for="item in router.options.routes[2].children" :key="item.path">
                 <template #icon>
                     <Icon :name="item.meta.icon"></Icon>
                 </template>
-                <span> {{ item.meta.title }}</span>
-            </a-menu-item>
+                <template #title>{{ item.meta.title }}</template>
+                <a-menu-item v-for="ele in item.children" :key="ele.path">
+                    <template #icon>
+                        <Icon :name="ele.meta.icon"></Icon>
+                    </template>
+                    <span> {{ ele.meta.title }}</span>
+                </a-menu-item>
+            </a-sub-menu>
         </a-menu>
         <IsCollapse v-model:isCollapse="isCollapse" />
     </a-layout-sider>
