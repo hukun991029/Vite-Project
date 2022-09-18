@@ -16,7 +16,7 @@ watch(
     }
 );
 const state = reactive({
-    rootSubmenuKeys: ['system-manage', 'components-manage'],
+    rootSubmenuKeys: ['/system-manage', '/approval-manage', '/components-manage'],
     openKeys: [''],
     selectedKeys: [],
     preOpenKeys: ['index']
@@ -61,14 +61,14 @@ watch(
         >
             <a-sub-menu v-for="item in router.options.routes[2].children" :key="item.path">
                 <template #icon>
-                    <Icon :name="item.meta.icon"></Icon>
+                    <Icon :name="item.meta && item.meta.icon"></Icon>
                 </template>
-                <template #title>{{ item.meta.title }}</template>
+                <template #title>{{ item.meta && item.meta.title }}</template>
                 <a-menu-item v-for="ele in item.children" :key="ele.path">
                     <template #icon>
-                        <Icon :name="ele.meta.icon"></Icon>
+                        <Icon :name="ele.meta && ele.meta.icon"></Icon>
                     </template>
-                    <span> {{ ele.meta.title }}</span>
+                    <span> {{ ele.meta && ele.meta.title }}</span>
                 </a-menu-item>
             </a-sub-menu>
         </a-menu>

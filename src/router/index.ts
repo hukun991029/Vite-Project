@@ -9,7 +9,10 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/login/index.vue')
+        component: () => import('../views/login/index.vue'),
+        meta: {
+            title: '登录'
+        }
     },
     {
         path: '/index',
@@ -99,7 +102,7 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             },
             {
-                path: 'components-manage',
+                path: '/components-manage',
                 name: 'Components-Manage',
                 component: {
                     render: () => h(resolveComponent('router-view'))
@@ -200,8 +203,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
-// router.beforeEach((to,from,next)=>{
-// // console.log(to,from,next);
-
-// })
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title as string;
+    next();
+});
 export default router;

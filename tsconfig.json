@@ -8,21 +8,23 @@
         "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
-        "isolatedModules": true,
         "esModuleInterop": true,
-        "lib": ["esnext", "dom"],
-        "noImplicitAny": false
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "noImplicitAny": false,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
     },
     "include": [
-        "**/*.ts",
-        "**/*.tsx",
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
-        "src/**/*.vue",
-        "src/router/index.js",
-        "src/utils/canvas.ts",
-        "src/api/index.ts"
-    ],
-    "references": [{ "path": "./tsconfig.node.json" }]
+        "src/**/*.vue"
+    ]
 }
