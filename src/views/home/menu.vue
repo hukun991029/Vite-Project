@@ -29,5 +29,6 @@ const menuList = reactive<MenuType[]>([
 </script>
 <template>
     <Menu :menuList="menuList"></Menu>
+    <InfinityMenu></InfinityMenu>
 </template>
 <style lang="scss" scoped></style>

@@ -77,8 +77,9 @@ watch(
 </template>
 <style lang="scss" scoped>
 .slide {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 64px - 48px);
     background-color: #fff;
+    overflow: auto;
     ::v-deep(.ant-layout-sider-trigger) {
         background-color: #fff;
     }
@@ -96,5 +97,6 @@ watch(
     height: 48px;
     bottom: 0;
     cursor: pointer;
+    background-color: #fff;
 }
 </style>

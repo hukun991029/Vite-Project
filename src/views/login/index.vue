@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import md5 from 'md5';
-import $api from '../../api/index.ts';
+import $api from '../../api/index';
 import useStore from '@/stores/store.js';
 import { defineComponent, reactive, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
@@ -23,8 +23,8 @@ const onFinish = async (values: any) => {
     let params = toRaw(values);
     params.userPwd = md5(params.userPwd);
     try {
-        let res = await $api.login(params);
-        store.setUserInfo(res);
+        // let res = await $api.login(params);
+        // store.setUserInfo(res);
         router.push({ path: '/index' });
     } catch (error) {
         console.log(error);

@@ -192,6 +192,24 @@ const routes: Array<RouteRecordRaw> = [
                             title: '日历',
                             icon: 'CalendarOutlined'
                         }
+                    },
+                    {
+                        path: '/chooseCity',
+                        name: 'ChooseCity',
+                        component: () => import('../views/home/choose-city.vue'),
+                        meta: {
+                            title: '城市选择',
+                            icon: 'CalendarOutlined'
+                        }
+                    },
+                    {
+                        path: '/formMenu',
+                        name: 'FormMenu',
+                        component: () => import('../views/home/form-menu.vue'),
+                        meta: {
+                            title: '表单',
+                            icon: 'CalendarOutlined'
+                        }
                     }
                 ]
             }
