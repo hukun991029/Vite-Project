@@ -2,11 +2,12 @@
 import { onMounted, reactive, ref } from 'vue';
 import type { FormInstance, CascaderProps } from 'ant-design-vue';
 import type { Rule } from 'ant-design-vue/es/form';
+import $api from '../../api/index';
 const formRef = ref<FormInstance>();
 interface FormState {
     userId: string;
     userName: string;
-    status: number;
+    state: number;
 }
 type Key = string | number;
 interface DataType {
@@ -38,7 +39,7 @@ const selectList = reactive([
 const formState = reactive<FormState>({
     userId: '',
     userName: '',
-    status: 0
+    state: 0
 });
 // 表格数据
 let tableData: DataType[] = reactive([]);
@@ -78,6 +79,7 @@ onMounted(() => {
             address: `London, Park Lane no. ${i}`
         });
     }
+    getList();
 });
 let loading = ref<boolean>(false);
 let dialogVisible = ref<boolean>(false);
@@ -136,14 +138,27 @@ const formData = reactive({
     phone: '',
     roleList: [],
     deptId: '',
-    state: ''
+    state: undefined,
+    job: ''
 });
+const getList = async () => {
+    let params = {
+        pageNum: queryParams.pageNum,
+        pageSize: queryParams.pageSize,
+        userId: formState.userId,
+        userName: formState.userName,
+        state: formState.state
+    };
+    let res = await $api.getList(params);
+};
 // 重置
 const handleReset = () => {
-    formRef.value.resetFields();
+    formRef.value && formRef.value.resetFields();
 };
 // 查询
-const handleSearch = () => {};
+const handleSearch = () => {
+    getList();
+};
 // 表格页码改变
 const handleChange = (pagination) => {
     console.log(pagination);
@@ -200,7 +215,7 @@ const handleCancel = () => {};
                 <a-form-item label="用户状态" name="status">
                     <a-select
                         ref="select"
-                        v-model:value="formState.status"
+                        v-model:value="formState.state"
                         style="width: 120px"
                         size="small"
                     >
@@ -278,25 +293,30 @@ const handleCancel = () => {};
                     <a-input v-model:value="formData.email" />
                 </a-form-item>
                 <a-form-item has-feedback label="部门" name="deptId">
-                    <a-input v-model:value="formData.deptId" />
+                    <a-cascader
+                        v-model:value="formData.deptId"
+                        :options="options"
+                        placeholder="请选择部门"
+                        change-on-select
+                    />
                 </a-form-item>
                 <a-form-item has-feedback label="系统角色" name="roleList">
                     <a-cascader
                         v-model:value="formData.roleList"
                         :options="options"
-                        placeholder="Please select"
+                        placeholder="请选择系统角色"
                         change-on-select
                     />
                 </a-form-item>
-                <a-form-item has-feedback label="状态" name="deptId">
-                    <a-select ref="select" v-model:value="formData.state">
+                <a-form-item has-feedback label="状态" name="state">
+                    <a-select ref="select" v-model:value="formData.state" placeholder="请选择状态">
                         <a-select-option v-for="item in selectList.slice(1)" :value="item.value">{{
                             item.label
                         }}</a-select-option>
                     </a-select>
                 </a-form-item>
-                <a-form-item has-feedback label="岗位" name="deptId">
-                    <a-input v-model:value="formData.deptId" />
+                <a-form-item has-feedback label="岗位" name="job">
+                    <a-input v-model:value="formData.job" />
                 </a-form-item>
             </a-form>
         </a-modal>

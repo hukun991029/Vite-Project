@@ -6,7 +6,6 @@ interface selectList {
     code: string;
     children?: Array<any> | undefined;
 }
-
 let province = ref<string | undefined>(undefined);
 let city = ref<string | undefined>(undefined);
 let area = ref<string | undefined>(undefined);

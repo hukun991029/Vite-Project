@@ -1,3 +1,11 @@
+/*
+ * @Author: hukun 1228836483@qq.com
+ * @Date: 2022-07-31 01:24:09
+ * @LastEditors: HuKun
+ * @LastEditTime: 2022-08-09 22:41:05
+ * @FilePath: /code/Vite-Project/src/utils/axios.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import axios from 'axios';
 import config from '../config/index';
 import { message } from 'ant-design-vue';
@@ -14,7 +22,8 @@ const instance = axios.create({
 });
 instance.interceptors.request.use((req) => {
     if (req.headers && !req.headers.Authorization) {
-        req.headers.Authorization = localStorage.getItem('token') || '';
+        let userInfo = localStorage.getItem('userInfo');
+        req.headers.Authorization = userInfo ? 'Bearer ' + JSON.parse(userInfo).token : '';
     }
     return req;
 });
@@ -34,13 +43,11 @@ instance.interceptors.response.use((res) => {
 
 function request(options) {
     options.method = options.method || 'get';
-    if (options.method.toLocaleLowerCase === 'post') {
-        options.data = options.params;
+    if (options.method.toLowerCase() === 'get') {
+        options.params = options.data;
     }
-    let mockFlag = false;
-    if (typeof options.mock !== 'undefined') {
-        mockFlag = options.mock;
-    }
+    let mockFlag = options.mock || false;
+
     if (config.ENV === 'production') {
         instance.defaults.baseURL = config.baseURL;
     } else {

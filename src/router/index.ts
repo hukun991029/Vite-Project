@@ -9,7 +9,10 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/login/index.vue')
+        component: () => import('../views/login/index.vue'),
+        meta: {
+            title: '登录'
+        }
     },
     {
         path: '/index',
@@ -99,7 +102,7 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             },
             {
-                path: 'components-manage',
+                path: '/components-manage',
                 name: 'Components-Manage',
                 component: {
                     render: () => h(resolveComponent('router-view'))
@@ -189,6 +192,24 @@ const routes: Array<RouteRecordRaw> = [
                             title: '日历',
                             icon: 'CalendarOutlined'
                         }
+                    },
+                    {
+                        path: '/chooseCity',
+                        name: 'ChooseCity',
+                        component: () => import('../views/home/choose-city.vue'),
+                        meta: {
+                            title: '城市选择',
+                            icon: 'CalendarOutlined'
+                        }
+                    },
+                    {
+                        path: '/formMenu',
+                        name: 'FormMenu',
+                        component: () => import('../views/home/form-menu.vue'),
+                        meta: {
+                            title: '表单',
+                            icon: 'CalendarOutlined'
+                        }
                     }
                 ]
             }
@@ -200,8 +221,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
-// router.beforeEach((to,from,next)=>{
-// // console.log(to,from,next);
-
-// })
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title as string;
+    next();
+});
 export default router;
