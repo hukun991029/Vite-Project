@@ -14,7 +14,7 @@ const filterOption = (input: string, option: any) => {
     return option.value.includes(input);
 };
 // 选择框改变
-const handleSelectChange = (value: string) => {
+const handleSelectChange = (value) => {
     console.log(value);
 };
 // 选择分类

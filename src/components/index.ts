@@ -8,8 +8,8 @@ import Menu from './Menu';
 import InfinityMenu from './InfinityMenu';
 import Progress from './Progress';
 import TimeSelected from './TimeSelected';
-import ChooseCity from './ChooseCity';
-import FormMenu from './FormMenu';
+import ChooseCity from './chooseCity';
+import FormMenu from './Form';
 const componentsList = [
     ChooseArea,
     IconSelected,
